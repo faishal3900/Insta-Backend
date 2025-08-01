@@ -53,7 +53,7 @@ router.post("/singin", (req,res)=>{
         .then(()=>{
             const token= jwt.sign({id:dbUser._id}, SECRETKEY )
             
-            res.status(201).json({msg:"login successfully",token})
+            res.status(201).json({msg:"login successfully",token,dbUser })
         });
     });
 
