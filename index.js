@@ -3,7 +3,7 @@ const app = express();
 const { default: mongoose } = require("mongoose")
 const { MONGOURL } = require("./key")
 const cors=require('cors')
-const dotenv = require ("dotenv")
+
 
 
 app.use(express.json());
@@ -16,8 +16,8 @@ app.use(cors({
 app.get("/", (req,res) => {
     res.send("this is get req")
 })
-dotenv.config()
-const PORT = process.env.PORT || 8000;
+
+const PORT = 3000;
 
 
 mongoose.connect(MONGOURL)
