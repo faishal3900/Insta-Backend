@@ -7,7 +7,12 @@ const dotenv = require ("dotenv")
 
 
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+    origin:[
+        'https://insta-frontend-fmca.onrender.com'
+    ],
+    credentials: true,
+}))
 app.get("/", (req,res) => {
     res.send("this is get req")
 })
@@ -22,6 +27,6 @@ app.use(require("./controllers/auth"))
 app.use(require("./controllers/user"))
 app.use(require("./controllers/post"))
 
-app.listen(PORT, () => {
+app.listen(PORT , "0.0.0.0", () => {
     console.log(`Serve is running on port http://localhost:${PORT}`);
 })
