@@ -3,7 +3,6 @@ const app = express();
 const { default: mongoose } = require("mongoose")
 const { MONGOURL } = require("./key")
 const cors=require('cors')
-const port = process.env.PORT || 10000 
 
 app.use(express.json());
 app.use(cors())
@@ -18,6 +17,8 @@ mongoose.connect(MONGOURL)
 app.use(require("./controllers/auth"))
 app.use(require("./controllers/user"))
 app.use(require("./controllers/post"))
+
+const port = 8000;
 app.listen(port, () => {
     console.log(`Serve is running on port http://localhost:${port}`);
 })
