@@ -7,13 +7,7 @@ const cors=require('cors')
 
 
 app.use(express.json());
-app.use(cors({
-    origin:[
-        'https://insta-frontend-fmca.onrender.com',
-        'https://insta-frontend-eight-sage.vercel.app/',
-    ],
-    credentials: true,
-}))
+app.use(cors())
 app.get("/", (req,res) => {
     res.send("this is get req")
 })
