@@ -57,10 +57,7 @@ router.put("/like", LoginReq, (req, res) => {
 
       Post.findByIdAndUpdate(postId, updateQuery, { new: true })
         .then((updatedPost) => {
-          res.json({
-            message: hasLiked ? "Post unliked" : "Post liked",
-            data: updatedPost,
-          });
+          res.json(updatedPost,);
         })
         .catch((err) => {
           console.error(err.message);
