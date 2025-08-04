@@ -7,12 +7,12 @@ const jwt = require("jsonwebtoken")
 
 
 router.post("/singup", (req, res) => {
-    const { name, email, password } = req.body
+    const { name, email, password,username } = req.body
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !username) {
         res.status(422).json({ msg: "please add all the fields" })
     } else {
-        User.findOne({ email: email })
+        User.findOne({ email: email  })
             .then(savedUser => {
                 if (savedUser) {
                     return res.status(422).json({ mgs: "User already existt" })
@@ -22,6 +22,7 @@ router.post("/singup", (req, res) => {
                             // console.log(hashedPassword);
                             const Usernew = new User({
                                 name,
+                                username,
                                 email,
                                 password: hashedPassword
                             })

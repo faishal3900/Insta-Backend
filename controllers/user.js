@@ -13,6 +13,21 @@ router.get('/alluser', LoginReq,(req,res)=>{
 });
 
 
+router.put('/profile/:id/profile-edit', LoginReq, (req, res) => {
+let userData;  // User ko store karne ke liye variable  
+  User.findOne({ _id: req.params.id })
+  .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      userData = user;  // User data store karo
+        
+    })
+});
+   
+
+
+
 router.get('/profile/:id', (req, res) => {
   let userData;  // User ko store karne ke liye variable  
   User.findOne({ _id: req.params.id })

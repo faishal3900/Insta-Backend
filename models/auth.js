@@ -8,6 +8,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    username: {
+        type: String,
+        required: true
+    },
+    bio: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true
@@ -18,7 +30,7 @@ const userSchema = new mongoose.Schema({
     },
     pic: {
         type: String,
-        default: "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_FMjpg_UX1000_.jpg"
+        default: ""
     },
     followers: [{
         type: ObjectId,

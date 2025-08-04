@@ -41,38 +41,36 @@ Post.find({postedBy:req.user._id}).then((posts)=>{
 })
 });
 
-router.put('/like',LoginReq,(req,res)=>{
-   const { postId } = req.body;
-    Post.findByIdAndUpdate(
-      postId,
-      {
-        $push: { likes: req.user._id}
-        
-      },
-      {
-       new :true,
-      }
-      ).then((data) => {
-    res.json({ data });
-  })
-      .catch((err) => console.log(err.message));
-});
-
-router.put("/unlike", LoginReq, (req, res) => {
+router.put("/like", LoginReq, (req, res) => {
   const { postId } = req.body;
-  Post.findByIdAndUpdate(
-    postId,
-    {
-      $pull: { likes: req.user._id },
-    },
-    {
-      new: true,
-    }
-  )
-  .then((data) => {
-      res.json({ data });
+  const userId = req.user._id;
+
+  Post.findById(postId)
+    .then((post) => {
+      if (!post) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+      const hasLiked = post.likes.includes(userId);
+      const updateQuery = hasLiked
+        ? { $pull: { likes: userId } }        // Unlike
+        : { $addToSet: { likes: userId } };  // Like (avoiding duplicates)
+
+      Post.findByIdAndUpdate(postId, updateQuery, { new: true })
+        .then((updatedPost) => {
+          res.json({
+            message: hasLiked ? "Post unliked" : "Post liked",
+            data: updatedPost,
+          });
+        })
+        .catch((err) => {
+          console.error(err.message);
+          res.status(500).json({ error: "Error updating like status" });
+        });
     })
-    .catch((err) => console.log(err.message));
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).json({ error: "Error fetching post" });
+    });
 });
 
 router.put('/comment',LoginReq,(req,res)=>{
