@@ -50,6 +50,7 @@ router.put("/like", LoginReq, (req, res) => {
       if (!post) {
         return res.status(404).json({ error: "Post not found" });
       }
+
       const hasLiked = post.likes.includes(userId);
       const updateQuery = hasLiked
         ? { $pull: { likes: userId } }        // Unlike
@@ -57,7 +58,10 @@ router.put("/like", LoginReq, (req, res) => {
 
       Post.findByIdAndUpdate(postId, updateQuery, { new: true })
         .then((updatedPost) => {
-          res.json(updatedPost,);
+          res.json({
+            message: hasLiked ? "Post unliked" : "Post liked",
+            data: updatedPost,
+          });
         })
         .catch((err) => {
           console.error(err.message);
