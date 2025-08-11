@@ -8,7 +8,7 @@ const cors=require('cors')
 
 app.use(express.json());
 app.use(cors({
-  origin: ["https://insta-frontend-ashen.vercel.app",'http://localhost:5173/','http://localhost:5174/'],
+  origin: ["http://localhost:5173/","http://localhost:5174/","https://insta-frontend-ashen.vercel.app",],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
