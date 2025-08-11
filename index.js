@@ -6,23 +6,15 @@ const cors=require('cors')
 
 
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "https://insta-frontend-ashen.vercel.app"
-];
-
-const corsOptions = {
-  origin: allowedOrigins,
+app.use(express.json());
+app.use(cors({
+  origin: ["https://insta-frontend-ashen.vercel.app","http://localhost:5173/","http://localhost:5174/",],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
-};
-
-app.use(cors(corsOptions));
+}));
 
 
-
-
+// app.options("*", cors());
 
 
 app.get("/", (req,res) => {
